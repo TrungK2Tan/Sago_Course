@@ -71,10 +71,12 @@ export default function AddCourse() {
 
       // Save Course info to Database
       const savePromises = courses.map(async (course) => {
-        await setDoc(doc(db, "Courses", Date.now().toString()), {
+        const docId = Date.now().toString() + Math.random().toString(36).substring(2, 15);
+        await setDoc(doc(db, "Courses", docId), {
           ...course,
           createdOn: new Date(),
           createdBy: userDetail?.email,
+          docId: docId,
         });
       });
 

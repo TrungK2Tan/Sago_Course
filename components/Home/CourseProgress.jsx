@@ -4,9 +4,14 @@ import { imageAssets } from "../../constant/Option";
 import Colors from "../../constant/Colors";
 import * as Progress from "react-native-progress";
 export default function CourseProgress({ courseList }) {
+  const GetCompletedChapters = (course)=>{
+    const completedChapter=course?.completedChapter?.length;
+    const perc = completedChapter/course?.chapters?.length;
+    return perc;
+  }
   return (
     <View style={{ marginTop: 10 }}>
-      <Text style={{ fontFamily: "outfit-bold", fontSize: 25 }}>Progress</Text>
+      <Text style={{ fontFamily: "outfit-bold", fontSize: 25 ,color:Colors.WHITE}}>Progress</Text>
 
       <FlatList
       showsHorizontalScrollIndicator={false}
@@ -45,8 +50,8 @@ export default function CourseProgress({ courseList }) {
               </View>
             </View>
             <View style={{marginTop:10}}>
-              <Progress.Bar progress={0.3} width={250} />
-              <Text style={{fontFamily:'outfit-regular',marginTop:2}}>3 Out of 5 Chapter Completed</Text>
+              <Progress.Bar progress={GetCompletedChapters(item)} width={250} />
+              <Text style={{fontFamily:'outfit-regular',marginTop:2}}>{item?.completedChapter?.length ?? 0} Out of {item.chapters?.length} Chapter Completed</Text>
             </View>
           </View>
         )}
